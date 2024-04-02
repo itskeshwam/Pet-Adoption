@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pet</title>
+</head>
+<body>
+    <h1>Edit Pet</h1>
+    <form method="POST" action="/edit_pet/{{ pet[0] }}">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ pet[1] }}"><br>
+        <label for="species">Species:</label><br>
+        <input type="text" id="species" name="species" value="{{ pet[2] }}"><br>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" value="{{ pet[3] }}"><br>
+        <input type="checkbox" id="available" name="available" value="1" {% if pet[4] %} checked {% endif %}>
+        <label for="available">Available for Adoption</label><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

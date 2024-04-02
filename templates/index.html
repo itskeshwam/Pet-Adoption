@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption</title>
+</head>
+<body>
+    <h1>Pet Adoption</h1>
+    <form method="POST" action="/">
+        <input type="text" name="search" placeholder="Search by name or species">
+        <button type="submit">Search</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Age</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+        {% for pet in pets %}
+        <tr>
+            <td>{{ pet[1] }}</td>
+            <td>{{ pet[2] }}</td>
+            <td>{{ pet[3] }}</td>
+            <td>{{ 'Yes' if pet[4] else 'No' }}</td>
+            <td>
+                <a href="/edit_pet/{{ pet[0] }}">Edit</a>
+                <form action="/delete_pet/{{ pet[0] }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if pets and pets|length >= per_page %}
+    <div>
+        {% if page > 1 %}
+        <a href="{{ url_for('index', page=1) }}">First</a>
+        <a href="{{ url_for('index', page=page-1) }}">Previous</a>
+        {% endif %}
+        {% if pets|length >= per_page %}
+        <a href="{{ url_for('index', page=page+1) }}">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
