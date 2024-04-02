@@ -61,5 +61,45 @@ def delete_pet(pet_id):
     db.commit()
     return redirect(url_for('index'))
 
+# Route for submitting adoption applications
+@app.route('/apply_for_adoption/<int:pet_id>', methods=['POST'])
+def apply_for_adoption(pet_id):
+    # Code to handle adoption application submission
+    pass
+
+# Route for reviewing adoption applications (for administrators)
+@app.route('/review_adoption_applications')
+def review_adoption_applications():
+    # Code to display adoption applications for review
+    pass
+
+# Check if the pet_reviews table exists before creating it
+cursor.execute("SHOW TABLES LIKE 'pet_reviews'")
+if not cursor.fetchone():
+    cursor.execute("""
+    CREATE TABLE pet_reviews (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        pet_id INT,
+        user_id INT,
+        rating INT,
+        review TEXT,
+        FOREIGN KEY (pet_id) REFERENCES pets(id),
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+    """)
+
+
+# Add a route for submitting pet reviews
+@app.route('/submit_pet_review/<int:pet_id>', methods=['POST'])
+def submit_pet_review(pet_id):
+    # Code to handle pet review submission
+    pass
+
+# Add a route for registering pet microchip information
+@app.route('/register_microchip/<int:pet_id>', methods=['POST'])
+def register_microchip(pet_id):
+    # Code to handle pet microchip registration
+    pass
+
 if __name__ == '__main__':
     app.run(debug=True)
