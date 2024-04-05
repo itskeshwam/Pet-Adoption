@@ -16,7 +16,7 @@ cursor = db.cursor()
 @app.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 10
     offset = (page - 1) * per_page
     search = request.form.get('search')
     if search:

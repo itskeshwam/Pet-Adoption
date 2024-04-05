@@ -1,8 +1,77 @@
-body {
-    font-family: Arial, sans-serif;
+/* Styles for the container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* Center the contents */
 }
 
-h1 {
-    color: #333;
+/* Styles for form elements */
+.container form {
+    display: inline-block;
+    text-align: left; /* Align form elements to the left */
 }
 
+.container form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.container form input[type="text"],
+.container form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.container form input[type="checkbox"] {
+    margin-top: 10px;
+}
+
+.container form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.container form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styles for the pet table */
+.pet-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pet-table th, .pet-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.pet-table th {
+    background-color: #f2f2f2;
+}
+
+.pet-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Styles for pagination */
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
