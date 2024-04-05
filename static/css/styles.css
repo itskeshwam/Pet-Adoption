@@ -3,13 +3,14 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center; /* Center the contents */
+    position: relative; /* Position relative for absolute positioning of elements */
 }
 
 /* Styles for form elements */
 .container form {
-    display: inline-block;
-    text-align: left; /* Align form elements to the left */
+    width: 100%;
+    text-align: center; /* Center form elements */
+    margin-top: 20px; /* Add spacing from previous element */
 }
 
 .container form label {
@@ -19,7 +20,7 @@
 
 .container form input[type="text"],
 .container form input[type="number"] {
-    width: 100%;
+    width: calc(100% - 16px); /* Adjust width to consider padding */
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -45,6 +46,7 @@
 .pet-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px; /* Add spacing from previous element */
 }
 
 .pet-table th, .pet-table td {
@@ -74,4 +76,14 @@
 
 .pagination a:hover {
     background-color: #ddd;
+}
+
+/* Styles for the back button */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }

@@ -9,48 +9,38 @@
 <body>
     <div class="container">
         <h1>Pet Adoption</h1>
-        <!-- Search form -->
-        <form method="POST" action="/">
+        <form method="POST" action="/" class="search-form">
             <input type="text" name="search" placeholder="Search by name or species">
             <button type="submit">Search</button>
         </form>
-        <!-- Table of pets -->
+        <a href="/add_pet" class="add-btn">Add Pet</a>
         <table class="pet-table">
-            <tr>
-                <th>Name</th>
-                <th>Species</th>
-                <th>Age</th>
-                <th>Available</th>
-                <th>Actions</th>
-            </tr>
-            {% for pet in pets %}
-            <tr>
-                <td>{{ pet[1] }}</td>
-                <td>{{ pet[2] }}</td>
-                <td>{{ pet[3] }}</td>
-                <td>{{ 'Yes' if pet[4] else 'No' }}</td>
-                <td>
-                    <a href="/edit_pet/{{ pet[0] }}">Edit</a>
-                    <form action="/delete_pet/{{ pet[0] }}" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Age</th>
+                    <th>Available for Adoption</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pet in pets %}
+                <tr>
+                    <td>{{ pet[1] }}</td>
+                    <td>{{ pet[2] }}</td>
+                    <td>{{ pet[3] }}</td>
+                    <td>{{ "Yes" if pet[4] else "No" }}</td>
+                    <td>
+                        <a href="/edit_pet/{{ pet[0] }}">Edit</a>
+                        <form action="/delete_pet/{{ pet[0] }}" method="POST" class="delete-form">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <!-- Pagination links -->
-        {% if pets and pets|length >= per_page %}
-        <div class="pagination">
-            {% if page > 1 %}
-            <a href="{{ url_for('index', page=1) }}">First</a>
-            <a href="{{ url_for('index', page=page-1) }}">Previous</a>
-            {% endif %}
-            {% if pets|length >= per_page %}
-            <a href="{{ url_for('index', page=page+1) }}">Next</a>
-            {% endif %}
-        </div>
-        {% endif %}
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
