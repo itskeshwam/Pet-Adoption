@@ -14,7 +14,7 @@ Before running this application, make sure you have the following installed:
 
 1. Clone this repository to your local machine:
 
-git clone https://github.com/your_username/your_repository.git
+git clone (https://github.com/itskeshwam/pet-adoption.git)
 
 2. Install the required Python packages:
 
