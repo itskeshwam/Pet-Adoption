@@ -1,89 +1,76 @@
-/* Styles for the container */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    position: relative; /* Position relative for absolute positioning of elements */
 }
 
-/* Styles for form elements */
-.container form {
-    width: 100%;
-    text-align: center; /* Center form elements */
-    margin-top: 20px; /* Add spacing from previous element */
+
+.form-container {
+    margin-bottom: 20px;
 }
 
-.container form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.container form input[type="text"],
-.container form input[type="number"] {
-    width: calc(100% - 16px); /* Adjust width to consider padding */
+.form-container input[type="text"] {
+    width: 200px;
     padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+    margin-right: 10px;
 }
 
-.container form input[type="checkbox"] {
-    margin-top: 10px;
-}
-
-.container form input[type="submit"] {
+.form-container button {
+    padding: 8px 16px;
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
     border: none;
     cursor: pointer;
 }
 
-.container form input[type="submit"]:hover {
+.form-container button:hover {
     background-color: #45a049;
 }
 
-/* Styles for the pet table */
-.pet-table {
+.add-pet-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.add-pet-link:hover {
+    background-color: #45a049;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px; /* Add spacing from previous element */
+    margin: 0 auto;
 }
 
-.pet-table th, .pet-table td {
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+img {
+    max-width: 150px;
+    max-height: 180px;
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.pet-table th {
-    background-color: #f2f2f2;
-}
-
-.pet-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Styles for pagination */
-.pagination {
-    margin-top: 20px;
-}
-
-.pagination a {
-    padding: 8px;
-    text-decoration: none;
-    color: black;
-}
-
-.pagination a:hover {
-    background-color: #ddd;
-}
-
-/* Styles for the back button */
-.back-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px;
 }

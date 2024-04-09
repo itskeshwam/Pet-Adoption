@@ -4,36 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Adoption</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Pet Adoption</h1>
-        <form method="POST" action="/" class="search-form">
-            <input type="text" name="search" placeholder="Search by name or species">
+        
+        <form action="/" method="POST" class="form-container">
+            <input type="text" name="search" placeholder="Search...">
             <button type="submit">Search</button>
         </form>
-        <a href="/add_pet" class="add-btn">Add Pet</a>
-        <table class="pet-table">
+
+        <table>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Species</th>
                     <th>Age</th>
-                    <th>Available for Adoption</th>
+                    <th>Available</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for pet in pets %}
                 <tr>
-                    <td>{{ pet[1] }}</td>
-                    <td>{{ pet[2] }}</td>
-                    <td>{{ pet[3] }}</td>
-                    <td>{{ "Yes" if pet[4] else "No" }}</td>
+                    <td>{{ pet.name }}</td>
+                    <td>{{ pet.species }}</td>
+                    <td>{{ pet.age }}</td>
+                    <td>{% if pet.available %} Yes {% else %} No {% endif %}</td>
+                    <td><img src="{{ pet.image_url }}" alt="{{ pet.name }}"></td>
                     <td>
-                        <a href="/edit_pet/{{ pet[0] }}">Edit</a>
-                        <form action="/delete_pet/{{ pet[0] }}" method="POST" class="delete-form">
+                        <a href="{{ url_for('edit_pet', pet_id=pet.id) }}">Edit</a>
+                        <form action="{{ url_for('delete_pet', pet_id=pet.id) }}" method="POST">
                             <button type="submit">Delete</button>
                         </form>
                     </td>
@@ -41,6 +44,8 @@
                 {% endfor %}
             </tbody>
         </table>
+        
+        <a href="{{ url_for('add_pet') }}" class="add-pet-link">Add Pet</a>
     </div>
 </body>
 </html>

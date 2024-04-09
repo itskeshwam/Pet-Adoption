@@ -1,16 +1,38 @@
+import subprocess
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
 # Connect to MySQL database
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="pet_adoption_db"
+    host=os.environ.get('DB_HOST', 'localhost'),
+    user=os.environ.get('DB_USER', 'root'),
+    password=os.environ.get('DB_PASSWORD', 'root'),
+    database=os.environ.get('DB_NAME', 'pet_adoption_db')
 )
 cursor = db.cursor()
+
+# Define database setup function
+def setup_database():
+    # Execute schema.sql to create tables if they don't exist
+    subprocess.call(['mysql', '-u', os.environ.get('DB_USER', 'root'), '-p' + os.environ.get('DB_PASSWORD', 'root'), os.environ.get('DB_NAME', 'pet_adoption_db'), '-e', 'source sql/schema.sql'])
+
+    # Check if pets table is empty
+    cursor.execute("SELECT COUNT(*) FROM pets")
+    result = cursor.fetchone()
+    if result[0] == 0:
+        # Execute data.sql to populate tables with sample data if the table is empty
+        subprocess.call(['mysql', '-u', os.environ.get('DB_USER', 'root'), '-p' + os.environ.get('DB_PASSWORD', 'root'), os.environ.get('DB_NAME', 'pet_adoption_db'), '-e', 'source sql/data.sql'])
+    else:
+        print("Table 'pets' already has data.")
+
+# Call setup_database function before each request
+@app.before_request
+def before_request_func():
+    setup_database()
+
 
 # Define routes
 @app.route('/', methods=['GET', 'POST'])
@@ -22,7 +44,16 @@ def index():
     else:
         cursor.execute("SELECT * FROM pets")
         pets = cursor.fetchall()
+        # Fetch column names
+        column_names = [desc[0] for desc in cursor.description]
+        # Convert each row to a dictionary
+        pets = [dict(zip(column_names, pet)) for pet in pets]
+    
+    print(pets)  # Print fetched pets
+    
     return render_template('index.html', pets=pets)
+
+
 
 @app.route('/add_pet', methods=['GET', 'POST'])
 def add_pet():
