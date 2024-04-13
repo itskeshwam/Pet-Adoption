@@ -2,6 +2,7 @@ import subprocess
 from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import os
+import logging
 
 app = Flask(__name__)
 
@@ -15,18 +16,35 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 # Define database setup function
-def setup_database():
-    # Execute schema.sql to create tables if they don't exist
-    subprocess.call(['mysql', '-u', os.environ.get('DB_USER', 'root'), '-p' + os.environ.get('DB_PASSWORD', 'root'), os.environ.get('DB_NAME', 'pet_adoption_db'), '-e', 'source sql/schema.sql'])
+import logging
 
-    # Check if pets table is empty
-    cursor.execute("SELECT COUNT(*) FROM pets")
-    result = cursor.fetchone()
-    if result[0] == 0:
-        # Execute data.sql to populate tables with sample data if the table is empty
-        subprocess.call(['mysql', '-u', os.environ.get('DB_USER', 'root'), '-p' + os.environ.get('DB_PASSWORD', 'root'), os.environ.get('DB_NAME', 'pet_adoption_db'), '-e', 'source sql/data.sql'])
-    else:
-        print("Table 'pets' already has data.")
+# Add logging configuration
+logging.basicConfig(level=logging.DEBUG)
+
+def setup_database():
+    try:
+        # Verify MySQL connection
+        logging.debug("Verifying MySQL connection...")
+        if not connection.is_connected():
+            logging.error("MySQL connection is not established.")
+            return
+
+        # Verify database and table existence
+        logging.debug("Verifying database and table existence...")
+        cursor.execute("SHOW TABLES LIKE 'pets'")
+        result = cursor.fetchone()
+        if not result:
+            logging.error("Table 'pets' does not exist.")
+            return
+
+        # If everything is fine, proceed with the setup
+        logging.debug("Tables exist. Proceeding with setup...")
+        # Your setup code here
+    except Exception as e:
+        logging.error(f"An error occurred: {str(e)}")
+
+
+
 
 # Call setup_database function before each request
 @app.before_request
