@@ -2,24 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
     <title>Add Pet</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        .container {
+            position: relative; /* Make container a reference for absolute positioning */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .back-btn {
+            position: absolute; /* Position the back button */
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-btn">Back</a>
-        <h1>Add Pet</h1>
-        <form method="POST" action="/add_pet" class="pet-form">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br>
-            <label for="species">Species:</label><br>
-            <input type="text" id="species" name="species" required><br>
-            <label for="age">Age:</label><br>
-            <input type="number" id="age" name="age" required><br>
-            <input type="checkbox" id="available" name="available" value="1">
-            <label for="available">Available for Adoption</label><br>
-            <input type="submit" value="Submit">
+        <a href="/" class="back-btn">
+            <button>BACK</button>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+            </svg>
+        </a>
+        <form method="POST" action="/add_pet" class="form">
+            <div class="header">Add Pet</div>
+            <div class="inputs">
+                <input placeholder="Name" class="input" type="text" name="name" required>
+                <input placeholder="Species" class="input" type="text" name="species" required>
+                <input placeholder="Age" class="input" type="number" name="age" required>
+                
+                <div class="checkbox-container">
+                    <label class="checkbox">
+                        <input type="checkbox" id="checkbox" name="available">
+                    </label>
+                    <label for="checkbox" class="checkbox-text">Available for adoption</label>
+                </div>
+                <button type="submit" class="sigin-btn">Submit</button>
+            </div>
         </form>
     </div>
 </body>
