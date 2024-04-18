@@ -74,19 +74,16 @@ img {
     border-radius: 5px;
     padding: 5px;
 }
+
 .back-btn {
-    position: relative;
-    margin: auto;
-    padding: 12px 18px;
-    transition: all 0.2s ease;
-    border: none;
-    background: white;
-    cursor: pointer;
-    border-width: 0px;
-    border-bottom-color: white;
-    margin-bottom: 20px;
-    z-index: 10px;
-  }
+  position: relative;
+  margin: auto;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  z-index: 10px;
+}
   
   .back-btn:before {
     content: "";
@@ -102,40 +99,44 @@ img {
   }
   
   .back-btn button {
-    position: relative;
     font-family: "Ubuntu", sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: rgb(35, 69, 103);
-  }
-  
-  .back-btn svg {
+    background: transparent;
+    border: none; 
+    outline: none;
+    z-index: 1;
     position: relative;
-    top: 0;
-    margin-left: 10px;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke: rgb(35, 69, 103);
-    stroke-width: 2;
-    transform: translateX(-5px);
-    transition: all 0.3s ease;
-  }
+}
+  
+.back-btn svg {
+  position: relative;
+  margin-left: 15px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: rgb(35, 69, 103);
+  stroke-width: 2;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
   
   .back-btn:hover:before {
-    width: 150px;
+    width: 110px;
     background: rgb(177, 218, 231);
   }
   
   .back-btn:hover svg {
     transform: translateX(0);
-  }
-  
-  .back-btn:active {
+    background: #f2f2f200;
+}
+
+.back-btn:active {
     transform: scale(0.95);
-  }
-  
+}
   .form {
     position:relative;
     display: flex;
