@@ -25,7 +25,7 @@ def setup_database():
     try:
         # Verify MySQL connection
         logging.debug("Verifying MySQL connection...")
-        if not connection.is_connected():
+        if not db.is_connected():  # Corrected from connection to db
             logging.error("MySQL connection is not established.")
             return
 
@@ -42,6 +42,7 @@ def setup_database():
         # Your setup code here
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")
+
 
 
 
