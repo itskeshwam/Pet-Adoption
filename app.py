@@ -16,7 +16,10 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 # Add logging configuration
-logging.basicConfig(level=logging.DEBUG)
+import logging
+
+# Configure logging
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 def setup_database():
     try:
@@ -39,9 +42,6 @@ def setup_database():
         # Your setup code here
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")
-
-
-
 
 
 # Call setup_database function before each request
@@ -84,7 +84,7 @@ def add_pet():
         db.commit()
 
         return redirect(url_for('index'))
-    
+
     return render_template('add_pet.html')
 
 @app.route('/edit_pet/<int:pet_id>', methods=['GET', 'POST'])
@@ -105,10 +105,20 @@ def edit_pet(pet_id):
     pet = cursor.fetchone()
     return render_template('edit_pet.html', pet=pet)
 
+from mysql.connector.errors import OperationalError
+
 @app.route('/delete_pet/<int:pet_id>', methods=['POST'])
 def delete_pet(pet_id):
-    cursor.execute("DELETE FROM pets WHERE id = %s", (pet_id,))
-    db.commit()
+    try:
+        cursor.execute("DELETE FROM pets WHERE id = %s", (pet_id,))
+        db.commit()
+    except OperationalError as e:
+        # Handle operational error (lost connection) by retrying
+        logging.error(f"OperationalError: {str(e)}. Retrying...")
+        db.reconnect()  # Reconnect to the database
+        cursor.execute("DELETE FROM pets WHERE id = %s", (pet_id,))
+        db.commit()
+
     return redirect(url_for('index'))
 
 if __name__ == "__main__":
