@@ -15,9 +15,6 @@ db = mysql.connector.connect(
 )
 cursor = db.cursor()
 
-# Define database setup function
-import logging
-
 # Add logging configuration
 logging.basicConfig(level=logging.DEBUG)
 
